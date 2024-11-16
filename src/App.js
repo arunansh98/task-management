@@ -18,6 +18,11 @@ function App() {
     setTasks([]);
   }
 
+  function deleteTask(id) {
+    let filteredTasks = tasks.filter((_task, index) => id !== index);
+    setTasks(filteredTasks);
+  }
+
   return (
     <div className="main">
       <div>
@@ -29,7 +34,7 @@ function App() {
           clearAllTasks={clearAllTasks}
           className="mb-[4rem]"
         />
-        <ViewTasks tasks={tasks} />
+        <ViewTasks tasks={tasks} deleteTask={deleteTask} />
       </div>
     </div>
   );
