@@ -1,10 +1,13 @@
 import "./App.css";
+import Modal from "./components/Modal";
 import AddTasks from "./views/AddTasks";
 import ViewTasks from "./views/ViewTasks";
 import { useState } from "react";
 
 function App() {
   const [tasks, setTasks] = useState([]);
+
+  const [showEditModal, setShowEditModal] = useState(false);
 
   /**
    * @description function to add a task
@@ -14,13 +17,25 @@ function App() {
     setTasks([...tasks, task]);
   }
 
+  /**
+   * @description function to clear all tasks
+   *
+   */
   function clearAllTasks() {
     setTasks([]);
   }
 
+  /**
+   * @description function to delete a task
+   * @param expects id of the task to be deleted
+   */
   function deleteTask(id) {
     let filteredTasks = tasks.filter((_task, index) => id !== index);
     setTasks(filteredTasks);
+  }
+
+  function editTask(id) {
+    setShowEditModal(true);
   }
 
   return (
@@ -34,7 +49,8 @@ function App() {
           clearAllTasks={clearAllTasks}
           className="mb-[4rem]"
         />
-        <ViewTasks tasks={tasks} deleteTask={deleteTask} />
+        <ViewTasks tasks={tasks} deleteTask={deleteTask} editTask={editTask} />
+        {showEditModal && <Modal setShowEditModal={setShowEditModal} />}
       </div>
     </div>
   );
