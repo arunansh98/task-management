@@ -35,11 +35,13 @@ function AddTasks({ ...props }) {
           className="mb-[1.5rem]"
           value={title}
           onChange={handleTitleChange}
+          placeholder="Enter Task Title"
         />
         <TextArea
           className="mb-[1.5rem]"
           value={description}
           onChange={handleDescriptionChange}
+          placeholder="Enter Task Description"
         />
         <div>
           <button

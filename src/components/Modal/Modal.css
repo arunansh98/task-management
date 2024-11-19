@@ -1,0 +1,7 @@
+.modal-backdrop {
+  @apply fixed inset-0 bg-black bg-opacity-50;
+}
+
+.modal-content {
+  @apply fixed text-center border-[1px] border-solid border-[grey] inset-[35rem] top-[8rem] bg-white;
+}

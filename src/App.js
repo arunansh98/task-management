@@ -1,5 +1,5 @@
 import "./App.css";
-import Modal from "./components/Modal";
+import Modal from "./components/Modal/Modal";
 import AddTasks from "./views/AddTasks";
 import ViewTasks from "./views/ViewTasks";
 import { useState } from "react";
@@ -8,6 +8,8 @@ function App() {
   const [tasks, setTasks] = useState([]);
 
   const [showEditModal, setShowEditModal] = useState(false);
+
+  const [activeTask, setActiveTask] = useState("");
 
   /**
    * @description function to add a task
@@ -34,8 +36,29 @@ function App() {
     setTasks(filteredTasks);
   }
 
-  function editTask(id) {
+  /**
+   * @description function to open edit task modal
+   * @param expects id of the task to be edited
+   */
+  function openEditTaskModal(id) {
     setShowEditModal(true);
+    const toBeEditedTask = tasks.find((_item, index) => index === id);
+    setActiveTask({ ...toBeEditedTask, id });
+  }
+
+  /**
+   * @description function to edit a task
+   * @param expects id of the task to be deleted and the final edited task object
+   */
+  function editTask(task, id) {
+    let editedTasks = tasks.map((item, index) => {
+      if (index === id) {
+        return task;
+      }
+      return item;
+    });
+    setTasks(editedTasks);
+    setShowEditModal(false);
   }
 
   return (
@@ -49,8 +72,18 @@ function App() {
           clearAllTasks={clearAllTasks}
           className="mb-[4rem]"
         />
-        <ViewTasks tasks={tasks} deleteTask={deleteTask} editTask={editTask} />
-        {showEditModal && <Modal setShowEditModal={setShowEditModal} />}
+        <ViewTasks
+          tasks={tasks}
+          deleteTask={deleteTask}
+          openEditTaskModal={openEditTaskModal}
+        />
+        {showEditModal && (
+          <Modal
+            setShowEditModal={setShowEditModal}
+            activeTask={activeTask}
+            editTask={editTask}
+          />
+        )}
       </div>
     </div>
   );

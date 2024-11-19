@@ -4,7 +4,7 @@ import { MdEdit } from "react-icons/md";
 function ViewTasks({ tasks, ...props }) {
   return tasks.map((task, index) => {
     let { title, description } = task;
-    let { deleteTask, editTask } = props;
+    let { deleteTask, openEditTaskModal } = props;
     return (
       <div key={index} className="flex justify-center">
         <div key={title} className="mr-[2rem]">
@@ -17,7 +17,7 @@ function ViewTasks({ tasks, ...props }) {
           <RiDeleteBin6Line />
         </button>
         <button>
-          <MdEdit onClick={() => editTask(index)} />
+          <MdEdit onClick={() => openEditTaskModal(index)} />
         </button>
       </div>
     );
